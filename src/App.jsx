@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 
 const projects = [
   { name: 'RideTogether', type: 'Group trip-planning application', year: '2026', categories: ['full-stack'], art: 'tide', feature: true, url: 'https://github.com/AnirudhAK07/ridetogether' },
-  { name: 'Oracle financial platforms', type: 'OFSLL & Oracle FLEXCUBE', year: '2023–Now', categories: ['enterprise'], art: 'noho' },
-  { name: 'Banking integrations', type: 'REST & SOAP services', year: '2023–Now', categories: ['apis', 'enterprise'], art: 'atlas' },
-  { name: 'Analytics reporting', type: 'Oracle Analytics Publisher', year: '2023–Now', categories: ['enterprise'], art: 'soho', feature: true },
+  { name: 'Oracle financial platforms', type: 'OFSLL & Oracle FLEXCUBE', year: 'Oracle', categories: ['enterprise'], art: 'noho' },
+  { name: 'Banking integrations', type: 'REST & SOAP services', year: 'Oracle', categories: ['apis', 'enterprise'], art: 'atlas' },
+  { name: 'Analytics reporting', type: 'Oracle Analytics Publisher', year: 'Oracle', categories: ['enterprise'], art: 'soho', feature: true },
 ];
 
 const filters = [
@@ -15,15 +15,16 @@ const filters = [
 ];
 
 function ProjectArtwork({ type }) {
-  if (type === 'tide') return <><div className="tide-planet" /><div className="tide-label">TIDE<br />WELL</div><div className="tide-line">A better way to make waves</div><div className="tide-circle">↗</div></>;
-  if (type === 'noho') return <><span className="noho-daisy">✳</span><span className="noho-text">NOHO<br />HOUSE</span><span className="noho-sub">A permanent<br />work in progress</span></>;
-  if (type === 'atlas') return <><div className="atlas-ring" /><div className="atlas-ring inner" /><span>ATLAS</span><small>Built for the<br />curious.</small></>;
-  return <><span className="soho-number">5</span><span className="soho-word">SOHO</span><div className="soho-stamp">NEW<br />YORK<br />CITY</div></>;
+  if (type === 'tide') return <><div className="tide-planet" /><div className="tide-label">RIDE<br />TOGETHER</div><div className="tide-line">Plan trips. Settle costs.</div><div className="tide-circle">↗</div></>;
+  if (type === 'noho') return <><span className="noho-daisy">✳</span><span className="noho-text">FLEX<br />CUBE</span><span className="noho-sub">Financial-services<br />workflows</span></>;
+  if (type === 'atlas') return <><div className="atlas-ring" /><div className="atlas-ring inner" /><span>APIs</span><small>Reliable data<br />exchange.</small></>;
+  return <><span className="soho-number">30+</span><span className="soho-word">REPORTS</span><div className="soho-stamp">ORACLE<br />ANALYTICS<br />SERVER</div></>;
 }
 
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeFilter, setActiveFilter] = useState('all');
+  const [theme, setTheme] = useState('midnight');
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -38,6 +39,10 @@ export default function App() {
     return () => observer.disconnect();
   }, [activeFilter]);
 
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+  }, [theme]);
+
   const visibleProjects = projects.filter(({ categories }) => activeFilter === 'all' || categories.includes(activeFilter));
 
   const closeMenu = () => setMenuOpen(false);
@@ -47,6 +52,9 @@ export default function App() {
       <div className="grain" aria-hidden="true" />
       <header className="site-header">
         <a className="wordmark" href="#top" aria-label="Anirudh AK home">AA<span>®</span></a>
+        <div className="theme-switcher" role="group" aria-label="Portfolio theme">
+          {['midnight', 'aurora', 'light'].map((option) => <button key={option} className={theme === option ? 'selected' : ''} onClick={() => setTheme(option)} aria-pressed={theme === option}>{option}</button>)}
+        </div>
         <button className="menu-button" aria-expanded={menuOpen} aria-controls="primary-nav" onClick={() => setMenuOpen((open) => !open)}>
           <span /><span /><span className="sr-only">Toggle menu</span>
         </button>
@@ -65,7 +73,7 @@ export default function App() {
           </div>
           <div className="hero-art reveal" aria-label="Abstract software engineering illustration" role="img">
             <div className="orb orb-one" /><div className="orb orb-two" /><div className="orb orb-three" /><div className="scribble">●</div>
-            <p className="art-caption">Currently at<br />Oracle · Bengaluru<br /><span>2023 — now</span></p>
+            <p className="art-caption">Enterprise systems<br />Oracle · Bengaluru<br /><span>Java · React · APIs</span></p>
           </div>
           <p className="scroll-note">Scroll to wander <span>↓</span></p>
         </section>
@@ -88,7 +96,7 @@ export default function App() {
           <div className="experience-heading reveal"><p className="eyebrow"><span /> Professional journey</p><h2>Building software<br />at <em>scale.</em></h2></div>
           <div className="experience-grid">
             <article className="glass-card role-card reveal">
-              <div className="role-top"><p>Oracle</p><span>Jul 2023 — Present</span></div>
+              <div className="role-top"><p>Oracle experience</p><span>Former role</span></div>
               <h3>Staff Consultant</h3>
               <p className="role-previous">Previously Associate Consultant</p>
               <ul><li>Developed and migrated <strong>30+ financial-services screens</strong> across OFSLL and Oracle FLEXCUBE.</li><li>Delivered <strong>15+ REST and SOAP integrations</strong> with validation, mapping, and resilient error handling.</li><li>Improved release confidence through cross-layer defect diagnosis and client-environment validation.</li></ul>
