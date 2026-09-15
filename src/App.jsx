@@ -61,7 +61,7 @@ export default function App() {
       <header className="site-header">
         <a className="wordmark" href="#top" aria-label="Anirudh AK home">AA<span>®</span></a>
         <div className="theme-switcher" role="group" aria-label="Portfolio theme">
-          {['midnight', 'aurora', 'light'].map((option) => <button key={option} className={theme === option ? 'selected' : ''} onClick={() => setTheme(option)} aria-pressed={theme === option}>{option}</button>)}
+          {['midnight', 'aurora', 'light', 'play'].map((option) => <button key={option} className={theme === option ? 'selected' : ''} onClick={() => setTheme(option)} aria-pressed={theme === option}>{option}</button>)}
         </div>
         <button className="menu-button" aria-expanded={menuOpen} aria-controls="primary-nav" onClick={() => setMenuOpen((open) => !open)}>
           <span /><span /><span className="sr-only">Toggle menu</span>
