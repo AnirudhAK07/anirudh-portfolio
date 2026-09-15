@@ -25,6 +25,7 @@ export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeFilter, setActiveFilter] = useState('all');
   const [theme, setTheme] = useState('midnight');
+  const [sceneTilt, setSceneTilt] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -46,6 +47,13 @@ export default function App() {
   const visibleProjects = projects.filter(({ categories }) => activeFilter === 'all' || categories.includes(activeFilter));
 
   const closeMenu = () => setMenuOpen(false);
+  const updateSceneTilt = ({ currentTarget, clientX, clientY }) => {
+    const bounds = currentTarget.getBoundingClientRect();
+    setSceneTilt({
+      x: ((clientY - bounds.top) / bounds.height - 0.5) * -14,
+      y: ((clientX - bounds.left) / bounds.width - 0.5) * 18,
+    });
+  };
 
   return (
     <>
@@ -71,9 +79,12 @@ export default function App() {
             <p className="intro">I’m Anirudh AK, a software engineer building dependable enterprise platforms and thoughtful full-stack products—from data flows and APIs to polished user experiences.</p>
             <div className="hero-actions"><a className="primary-link" href="#work">View my work <b>↘</b></a><a className="text-link" href="mailto:mail2anirudhak@gmail.com">Get in touch</a></div>
           </div>
-          <div className="hero-art reveal" aria-label="Abstract software engineering illustration" role="img">
-            <div className="orb orb-one" /><div className="orb orb-two" /><div className="orb orb-three" /><div className="scribble">●</div>
-            <p className="art-caption">Enterprise systems<br />Oracle · Bengaluru<br /><span>Java · React · APIs</span></p>
+          <div className="hero-art interactive-scene reveal" aria-label="Interactive three dimensional software engineering illustration" role="img" onPointerMove={updateSceneTilt} onPointerLeave={() => setSceneTilt({ x: 0, y: 0 })} style={{ '--rotate-x': `${sceneTilt.x}deg`, '--rotate-y': `${sceneTilt.y}deg` }}>
+            <div className="scene-grid" /><div className="orb orb-one" /><div className="orb orb-two" /><div className="orb orb-three" />
+            <div className="scene-orbit orbit-a" /><div className="scene-orbit orbit-b" />
+            <div className="scene-cube" aria-hidden="true"><i /><i /><i /><i /><i /><i /></div>
+            <div className="scene-node node-a" /><div className="scene-node node-b" /><div className="scribble">&lt;/&gt;</div>
+            <p className="art-caption">Move to explore<br />the system<br /><span>Java · React · APIs</span></p>
           </div>
           <p className="scroll-note">Scroll to wander <span>↓</span></p>
         </section>
